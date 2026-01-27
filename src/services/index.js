@@ -130,6 +130,16 @@ export const appointmentService = {
     const response = await api.post(`/appointments/${id}/cancel`);
     return response.data;
   },
+
+  complete: async (id) => {
+    const response = await api.post(`/appointments/${id}/complete`);
+    return response.data;
+  },
+
+  markNoShow: async (id) => {
+    const response = await api.post(`/appointments/${id}/no-show`);
+    return response.data;
+  },
 };
 
 export const queueService = {
