@@ -41,7 +41,7 @@ const Queue = () => {
     }
 
     try {
-      await queueService.assignFromQueue(staffId, queueId);
+      await queueService.assignFromQueue(staffId);
       showToast('Appointment assigned successfully', 'success');
       setAssigningId(null);
       setSelectedStaff({});
