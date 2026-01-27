@@ -77,100 +77,146 @@
 .appointment-card.status-cancelled::before {
   background: #ef4444;
 }
-  border-left-color: #f44336;
-}
 
-.appointment-card.status-no-show {
-  border-left-color: #ff9800;
+.appointment-card.status-no-show::before {
+  background: #f59e0b;
 }
 
 .apt-header {
   display: flex;
   justify-content: space-between;
   align-items: start;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   gap: 12px;
 }
 
 .apt-header h3 {
   margin: 0;
-  font-size: 18px;
-  color: #333;
+  font-size: 20px;
+  color: var(--text-dark);
+  font-weight: 700;
 }
 
 .apt-details {
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .apt-details p {
-  margin: 8px 0;
-  font-size: 14px;
-  color: #555;
+  margin: 10px 0;
+  font-size: 15px;
+  color: var(--text-main);
+  line-height: 1.5;
 }
 
 .apt-details strong {
-  color: #333;
+  color: var(--text-dark);
+  font-weight: 600;
 }
 
 .apt-actions {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  margin-top: auto;
 }
 
 .btn-small {
-  padding: 6px 10px;
-  font-size: 12px;
+  padding: 8px 14px;
+  font-size: 13px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: all 0.3s;
+  transition: all 0.2s;
+}
+
+.btn-edit {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #5558dd;
+  transform: translateY(-1px);
 }
 
 .btn-success {
-  background: #4caf50;
+  background: #10b981;
   color: white;
 }
 
 .btn-success:hover {
-  background: #45a049;
+  background: #059669;
+  transform: translateY(-1px);
 }
 
 .btn-warning {
-  background: #ff9800;
+  background: #f59e0b;
   color: white;
 }
 
 .btn-warning:hover {
-  background: #e68900;
+  background: #d97706;
+  transform: translateY(-1px);
+}
+
+.btn-delete {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.btn-cancel {
+  background: #6b7280;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #4b5563;
+  transform: translateY(-1px);
 }
 
 .conflict-warning {
-  background: #ffebee;
-  border: 1px solid #f44336;
-  border-radius: 6px;
-  padding: 12px;
-  margin-bottom: 16px;
-  color: #c62828;
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border: 2px solid #ef4444;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  color: #991b1b;
 }
 
 .conflict-warning strong {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 8px;
+  font-size: 16px;
+  color: #dc2626;
 }
 
 .conflict-warning p {
-  margin: 4px 0;
-  font-size: 13px;
+  margin: 6px 0;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .capacity-warning {
-  background: #fff3cd;
-  border: 1px solid #ff9800;
-  border-radius: 4px;
-  padding: 8px 10px;
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border: 2px solid #f59e0b;
+  border-radius: 10px;
+  padding: 12px;
   margin-top: 8px;
+  color: #92400e;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
   color: #856404;
   font-size: 13px;
 }
