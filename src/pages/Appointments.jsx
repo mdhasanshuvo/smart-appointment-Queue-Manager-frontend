@@ -101,9 +101,9 @@ const Appointments = () => {
   const handleStatusChange = async (id, newStatus) => {
     try {
       if (newStatus === 'Completed') {
-        await appointmentService.update(id, { status: newStatus });
+        await appointmentService.complete(id);
       } else if (newStatus === 'No-Show') {
-        await appointmentService.update(id, { status: newStatus });
+        await appointmentService.markNoShow(id);
       }
       showToast('Status updated', 'success');
       fetchData();
