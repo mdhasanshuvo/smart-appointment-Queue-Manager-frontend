@@ -26,7 +26,7 @@ const Dashboard = () => {
       setQueue(queueRes.data);
       setActivityLogs(logsRes.data);
     } catch (error) {
-      console.error('Error fetching dashboard data:', error);
+      // Error handling - could show toast notification here
     } finally {
       setLoading(false);
     }
