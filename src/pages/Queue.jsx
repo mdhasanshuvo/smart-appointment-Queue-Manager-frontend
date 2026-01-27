@@ -77,22 +77,22 @@ const Queue = () => {
             {queueItems.map((item, index) => (
               <div key={item._id} className="queue-item">
                 <div className="queue-position">
-                  <span className="position-badge">{ordinal(index + 1)}</span>
+                  <span className="position-badge">{ordinal(item.position)}</span>
                 </div>
 
                 <div className="queue-info">
-                  <h3>{item.customerName}</h3>
+                  <h3>{item.appointment?.customerName}</h3>
                   <p>
-                    <strong>Service:</strong> {item.service.serviceName}
-                    <span className="duration">({item.service.duration}min)</span>
+                    <strong>Service:</strong> {item.appointment?.service?.serviceName}
+                    <span className="duration">({item.appointment?.service?.duration}min)</span>
                   </p>
                   <p>
-                    <strong>Requested Date:</strong> {new Date(item.appointmentDate).toLocaleDateString()}
-                    {' at '} {item.appointmentTime}
+                    <strong>Requested Date:</strong> {new Date(item.appointment?.appointmentDate).toLocaleDateString()}
+                    {' at '} {item.appointment?.appointmentTime}
                   </p>
-                  {item.notes && (
+                  {item.appointment?.notes && (
                     <p>
-                      <strong>Notes:</strong> {item.notes}
+                      <strong>Notes:</strong> {item.appointment.notes}
                     </p>
                   )}
                   <p className="added-time">
@@ -109,7 +109,7 @@ const Queue = () => {
                         className="staff-select"
                       >
                         <option value="">Select staff member</option>
-                        {staff.filter((s) => s.serviceType === item.service.requiredStaffType).map((s) => (
+                        {staff.filter((s) => s.serviceType === item.appointment?.service?.requiredStaffType).map((s) => (
                           <option key={s._id} value={s._id}>{s.name}</option>
                         ))}
                       </select>

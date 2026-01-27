@@ -10,6 +10,7 @@ const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [services, setServices] = useState([]);
   const [staff, setStaff] = useState([]);
+  const [staffLoads, setStaffLoads] = useState({});
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -24,6 +25,29 @@ const Appointments = () => {
     notes: '',
   });
   const { toast, showToast, setToast } = useToast();
+
+  useEffect(() => {
+    fetchData();
+  }, [selectedDate]);
+
+  useEffect(() => {
+    if (modalOpen && formData.appointmentDate) {
+      fetchStaffLoads();
+    }
+  }, [modalOpen, formData.appointmentDate]);
+
+  const fetchStaffLoads = async () => {
+    try {
+      const response = await staffService.getLoad(formData.appointmentDate);
+      const loadsMap = {};
+      response.data.forEach(load => {
+        loadsMap[load.staffId] = load;
+      });
+      setStaffLoads(loadsMap);
+    } catch (error) {
+      console.error('Failed to fetch staff loads', error);
+    }
+  };
 
   useEffect(() => {
     fetchData();
@@ -226,10 +250,29 @@ const Appointments = () => {
                 onChange={(e) => setFormData({ ...formData, assignedStaff: e.target.value })}
               >
                 <option value="">Auto-assign if available</option>
-                {staff.map((s) => (
-                  <option key={s._id} value={s._id}>{s.name} ({s.serviceType})</option>
-                ))}
+                {staff.map((s) => {
+                  const load = staffLoads[s._id];
+                  const loadText = load 
+                    ? ` (${load.appointmentsToday} / ${load.dailyCapacity} appointments today)`
+                    : '';
+                  const isOverCapacity = load && load.isBooked;
+                  
+                  return (
+                    <option 
+                      key={s._id} 
+                      value={s._id}
+                      style={{ color: isOverCapacity ? '#f44336' : '#333' }}
+                    >
+                      {s.name} ({s.serviceType}){loadText}
+                    </option>
+                  );
+                })}
               </select>
+              {formData.assignedStaff && staffLoads[formData.assignedStaff]?.isBooked && (
+                <p className="capacity-warning">
+                  ⚠️ This staff member has reached daily capacity. Appointment may be added to queue.
+                </p>
+              )}
             </div>
             <div className="form-row">
               <div className="form-group">

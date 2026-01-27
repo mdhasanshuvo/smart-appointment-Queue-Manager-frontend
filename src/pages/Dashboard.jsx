@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { dashboardService, staffService, queueService, activityLogService } from '../services';
+import Layout from '../components/Layout';
+import Toast, { useToast } from '../components/Toast';
+import Spinner from '../components/Spinner';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -8,6 +11,7 @@ const Dashboard = () => {
   const [activityLogs, setActivityLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const { toast, showToast, setToast } = useToast();
 
   useEffect(() => {
     fetchDashboardData();
@@ -26,18 +30,17 @@ const Dashboard = () => {
       setQueue(queueRes.data);
       setActivityLogs(logsRes.data);
     } catch (error) {
-      // Error handling - could show toast notification here
+      showToast('Failed to load dashboard data', 'error');
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading) {
-    return <div className="loading">Loading dashboard...</div>;
-  }
+  if (loading) return <Spinner />;
 
   return (
-    <div className="dashboard">
+    <Layout>
+      <div className="dashboard">
       <div className="dashboard-header">
         <h1>Dashboard</h1>
         <div className="date-selector">
@@ -124,7 +127,10 @@ const Dashboard = () => {
           </div>
         </div>
       )}
+
+      <Toast toast={toast} onClose={() => setToast(null)} />
     </div>
+    </Layout>
   );
 };
 
